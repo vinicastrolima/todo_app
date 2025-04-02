@@ -84,9 +84,11 @@ const Register = () => {
               required
             />
           </div>
-          <button type="submit" className="btn btn-success w-100" style={{ height: "48px" }}>
-            Registrar
-          </button>
+          <div className="text-center">
+            <button type="submit" className="btn btn-primary btn-centered-sm">
+              Registrar
+            </button>
+          </div>
         </form>
       </div>
     </div>

@@ -24,7 +24,7 @@ const Login = () => {
   return (
     <div className="container d-flex justify-content-center align-items-center min-vh-100">
       <div className="form-wrapper">
-        <h4 className="text-center fw-bold mb-4">Bem-vindo de volta 👋</h4>
+        <h4 className="text-center fw-bold mb-4">LOGIN</h4>
         {erro && <div className="alert alert-danger">{erro}</div>}
         <form onSubmit={handleLogin}>
           <div className="mb-3">
@@ -49,9 +49,11 @@ const Login = () => {
               required
             />
           </div>
-          <button type="submit" className="btn btn-primary w-100" style={{ height: "48px" }}>
-            Entrar
-          </button>
+          <div className="text-center">
+            <button type="submit" className="btn btn-primary btn-centered-sm">
+              Entrar
+            </button>
+          </div>
         </form>
       </div>
     </div>
