@@ -9,6 +9,7 @@ const Dashboard = () => {
   const [filtro, setFiltro] = useState("todos");
   const [quote, setQuote] = useState("");
   const [author, setAuthor] = useState(""); 
+  const [loading, setLoading] = useState(false);
 
   const token = localStorage.getItem("token");
 
@@ -44,12 +45,14 @@ const Dashboard = () => {
   const handleCreate = async (e) => {
     e.preventDefault();
     setErro("");
-
+    setLoading(true);
+  
     if (!novaTarefa) {
       setErro("O título da tarefa é obrigatório.");
+      setLoading(false);
       return;
     }
-
+  
     try {
       await api.post(
         "/tasks",
@@ -59,8 +62,10 @@ const Dashboard = () => {
       setNovaTarefa("");
       setDescricao("");
       fetchTarefas();
-    } catch (err) {
+    } catch {
       setErro("Erro ao criar tarefa.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -95,6 +100,14 @@ const Dashboard = () => {
   return (
     <div className="container py-5">
       <h2 className="fw-bold text-center mb-4">Minhas Tarefas</h2>
+
+      {loading && (
+        <div className="text-center mb-3">
+          <div className="spinner-border text-primary" role="status" style={{ width: "2rem", height: "2rem" }}>
+            <span className="visually-hidden">Carregando...</span>
+          </div>
+        </div>
+      )}
 
       {/* Formulário */}
       <form onSubmit={handleCreate} className="card shadow-sm p-4 mb-4 d-grid gap-3">
