@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
 /* Reset base + tipografia profissional */
 body {
   margin: 0;
@@ -90,4 +92,13 @@ button {
   border-radius: 12px;
 }
 
+.quote-text {
+  font-family: 'Pacifico', cursive;
+  font-size: 1.1rem;
+  color: #6366f1;
+  max-width: 340px;
+}
 
+.blockquote-footer {
+  font-size: 0.875rem;
+}
