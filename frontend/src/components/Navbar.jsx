@@ -9,7 +9,7 @@ const Navbar = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     setIsAuthenticated(!!token);
-  }, [pathname]); // Atualiza ao trocar de rota
+  }, [pathname]);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -17,39 +17,27 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
-      <div className="container">
+    <nav className="navbar navbar-dark bg-dark shadow-sm">
+      <div className="container d-flex justify-content-between align-items-center py-2">
         <Link className="navbar-brand fw-bold" to="/">
           ToDoApp
         </Link>
-        <div className="collapse navbar-collapse justify-content-end">
-          <ul className="navbar-nav">
-            {!isAuthenticated ? (
-              <>
-                <li className="nav-item">
-                  <Link className={`nav-link ${pathname === "/" && "active"}`} to="/">
-                    Login
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link
-                    className={`nav-link ${
-                      pathname === "/register" && "active"
-                    }`}
-                    to="/register"
-                  >
-                    Registrar
-                  </Link>
-                </li>
-              </>
-            ) : (
-              <li className="nav-item">
-                <button className="btn btn-outline-light" onClick={handleLogout}>
-                  Sair
-                </button>
-              </li>
-            )}
-          </ul>
+
+        <div className="d-flex align-items-center gap-3">
+          {!isAuthenticated ? (
+            <>
+              <Link className={`nav-link text-white ${pathname === "/" && "fw-bold"}`} to="/">
+                Login
+              </Link>
+              <Link className={`nav-link text-white ${pathname === "/register" && "fw-bold"}`} to="/register">
+                Registrar
+              </Link>
+            </>
+          ) : (
+            <button className="btn btn-outline-light btn-sm" onClick={handleLogout}>
+              Sair
+            </button>
+          )}
         </div>
       </div>
     </nav>
