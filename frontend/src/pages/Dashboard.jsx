@@ -48,6 +48,28 @@ const Dashboard = () => {
     }
   };
 
+  const handleDelete = async (id) => {
+    try {
+      await api.delete(`/tasks/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      fetchTarefas();
+    } catch (err) {
+      console.error("Erro ao excluir tarefa:", err);
+    }
+  };
+
+  const toggleDone = async (id) => {
+    try {
+      await api.patch(`/tasks/${id}/toggle`, {}, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      fetchTarefas();
+    } catch (err) {
+      console.error("Erro ao atualizar status:", err);
+    }
+  };
+
   return (
     <div className="container py-5">
       <h2 className="fw-bold text-center mb-4">Minhas Tarefas</h2>
@@ -81,12 +103,30 @@ const Dashboard = () => {
         {tarefas.map((task) => (
           <div key={task.id} className="col-md-6 col-lg-4 mb-3">
             <div className="card shadow-sm h-100">
-              <div className="card-body">
+              <div className="card-body d-flex flex-column">
                 <h5 className="card-title">{task.title}</h5>
                 <p className="card-text text-muted">{task.description}</p>
-                <p className="badge bg-secondary">
-                  {task.is_done ? "Concluída" : "Pendente"}
+                <p>
+                  <span className={`badge ${task.is_done ? "bg-success" : "bg-warning text-dark"}`}>
+                    {task.is_done ? "Concluída" : "Pendente"}
+                  </span>
                 </p>
+
+                <div className="mt-auto d-flex gap-2">
+                  <button
+                    className={`btn btn-sm ${task.is_done ? "btn-secondary" : "btn-success"}`}
+                    onClick={() => toggleDone(task.id)}
+                  >
+                    {task.is_done ? "Desmarcar" : "Concluir"}
+                  </button>
+
+                  <button
+                    className="btn btn-sm btn-outline-danger"
+                    onClick={() => handleDelete(task.id)}
+                  >
+                    Excluir
+                  </button>
+                </div>
               </div>
             </div>
           </div>
