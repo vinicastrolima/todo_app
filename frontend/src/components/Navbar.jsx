@@ -1,21 +1,59 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-const Navbar = () => (
-  <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div className="container-fluid">
-      <Link className="navbar-brand" to="/">ToDoApp</Link>
-      <div className="collapse navbar-collapse">
-        <ul className="navbar-nav ms-auto">
-          <li className="nav-item">
-            <Link className="nav-link" to="/">Login</Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/register">Registrar</Link>
-          </li>
-        </ul>
+const Navbar = () => {
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setIsAuthenticated(!!token);
+  }, [pathname]); // Atualiza ao trocar de rota
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/");
+  };
+
+  return (
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+      <div className="container">
+        <Link className="navbar-brand fw-bold" to="/">
+          ToDoApp
+        </Link>
+        <div className="collapse navbar-collapse justify-content-end">
+          <ul className="navbar-nav">
+            {!isAuthenticated ? (
+              <>
+                <li className="nav-item">
+                  <Link className={`nav-link ${pathname === "/" && "active"}`} to="/">
+                    Login
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link
+                    className={`nav-link ${
+                      pathname === "/register" && "active"
+                    }`}
+                    to="/register"
+                  >
+                    Registrar
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <li className="nav-item">
+                <button className="btn btn-outline-light" onClick={handleLogout}>
+                  Sair
+                </button>
+              </li>
+            )}
+          </ul>
+        </div>
       </div>
-    </div>
-  </nav>
-);
+    </nav>
+  );
+};
 
 export default Navbar;
