@@ -16,20 +16,44 @@ const Login = () => {
       const res = await api.post("/login", { email, password });
       localStorage.setItem("token", res.data.token);
       navigate("/dashboard");
-    } catch (error) {
+    } catch {
       setErro("Credenciais inválidas.");
     }
   };
 
   return (
-    <div className="col-md-4 offset-md-4">
-      <h3>Login</h3>
-      {erro && <div className="alert alert-danger">{erro}</div>}
-      <form onSubmit={handleLogin}>
-        <input type="email" className="form-control my-2" placeholder="E-mail" value={email} onChange={(e) => setEmail(e.target.value)} />
-        <input type="password" className="form-control my-2" placeholder="Senha" value={password} onChange={(e) => setPassword(e.target.value)} />
-        <button className="btn btn-primary w-100">Entrar</button>
-      </form>
+    <div className="container d-flex justify-content-center align-items-center min-vh-100">
+      <div className="form-wrapper">
+        <h4 className="text-center fw-bold mb-4">Bem-vindo de volta 👋</h4>
+        {erro && <div className="alert alert-danger">{erro}</div>}
+        <form onSubmit={handleLogin}>
+          <div className="mb-3">
+            <label className="form-label">E-mail</label>
+            <input
+              type="email"
+              className="form-control"
+              placeholder="Digite seu e-mail"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="form-label">Senha</label>
+            <input
+              type="password"
+              className="form-control"
+              placeholder="Digite sua senha"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <button type="submit" className="btn btn-primary w-100" style={{ height: "48px" }}>
+            Entrar
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

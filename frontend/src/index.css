@@ -25,3 +25,12 @@ html {
 button {
   all: unset;
 }
+
+.form-wrapper {
+  width: 100%;
+  max-width: 440px;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  background: #fff;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+}
