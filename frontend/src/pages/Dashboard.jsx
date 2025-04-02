@@ -6,6 +6,7 @@ const Dashboard = () => {
   const [novaTarefa, setNovaTarefa] = useState("");
   const [descricao, setDescricao] = useState("");
   const [erro, setErro] = useState("");
+  const [filtro, setFiltro] = useState("todos");
 
   const token = localStorage.getItem("token");
 
@@ -70,10 +71,17 @@ const Dashboard = () => {
     }
   };
 
+  const tarefasFiltradas = tarefas.filter((t) => {
+    if (filtro === "pendentes") return !t.is_done;
+    if (filtro === "concluidas") return t.is_done;
+    return true; // todos
+  });
+
   return (
     <div className="container py-5">
       <h2 className="fw-bold text-center mb-4">Minhas Tarefas</h2>
 
+      {/* Formulário de Nova Tarefa */}
       <form onSubmit={handleCreate} className="card shadow-sm p-4 mb-4 d-grid gap-3">
         <h5 className="fw-semibold">Nova Tarefa</h5>
 
@@ -99,8 +107,31 @@ const Dashboard = () => {
         </div>
       </form>
 
+      {/* Filtro de status */}
+      <div className="d-flex justify-content-center gap-2 mb-4">
+        <button
+          className={`btn btn-sm ${filtro === "todos" ? "btn-primary" : "btn-outline-primary"}`}
+          onClick={() => setFiltro("todos")}
+        >
+          Todos
+        </button>
+        <button
+          className={`btn btn-sm ${filtro === "pendentes" ? "btn-primary" : "btn-outline-primary"}`}
+          onClick={() => setFiltro("pendentes")}
+        >
+          Pendentes
+        </button>
+        <button
+          className={`btn btn-sm ${filtro === "concluidas" ? "btn-primary" : "btn-outline-primary"}`}
+          onClick={() => setFiltro("concluidas")}
+        >
+          Concluídas
+        </button>
+      </div>
+
+      {/* Lista de Tarefas */}
       <div className="row">
-        {tarefas.map((task) => (
+        {tarefasFiltradas.map((task) => (
           <div key={task.id} className="col-md-6 col-lg-4 mb-3">
             <div className="card shadow-sm h-100">
               <div className="card-body d-flex flex-column">
