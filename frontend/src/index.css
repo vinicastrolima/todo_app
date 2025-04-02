@@ -53,3 +53,41 @@ button {
   text-align: center;
 }
 
+/* Cores customizadas para harmonização */
+.btn-primary {
+  background-color: #6366f1 !important;
+  border-color: #6366f1 !important;
+}
+
+.btn-success {
+  background-color: #10b981 !important;
+  border-color: #10b981 !important;
+}
+
+.btn-danger {
+  background-color: #ef4444 !important;
+  border-color: #ef4444 !important;
+}
+
+.btn-secondary {
+  background-color: #9ca3af !important;
+  border-color: #9ca3af !important;
+  color: white !important;
+}
+
+.badge-pendente {
+  background-color: #f59e0b;
+  color: white;
+}
+
+.badge-concluida {
+  background-color: #10b981;
+  color: white;
+}
+
+.card {
+  background-color: #f9fafb;
+  border-radius: 12px;
+}
+
+

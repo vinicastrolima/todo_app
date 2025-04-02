@@ -138,9 +138,9 @@ const Dashboard = () => {
                 <h5 className="card-title">{task.title}</h5>
                 <p className="card-text text-muted">{task.description}</p>
                 <p>
-                  <span className={`badge ${task.is_done ? "bg-success" : "bg-warning text-dark"}`}>
-                    {task.is_done ? "Concluída" : "Pendente"}
-                  </span>
+                <span className={`badge ${task.is_done ? "badge-concluida" : "badge-pendente"}`}>
+                  {task.is_done ? "Concluída" : "Pendente"}
+                </span>
                 </p>
 
                 <div className="mt-auto d-flex gap-2">
